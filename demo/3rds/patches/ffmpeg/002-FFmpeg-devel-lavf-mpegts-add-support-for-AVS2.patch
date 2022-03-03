@@ -1,0 +1,41 @@
+From patchwork Sat May 26 06:50:01 2018
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Subject: [FFmpeg-devel] lavf/mpegts: add support for AVS2
+From: hwren <hwrenx@126.com>
+X-Patchwork-Id: 9090
+Message-Id: <1527317401-13326-1-git-send-email-hwrenx@126.com>
+To: ffmpeg-devel@ffmpeg.org
+Date: Sat, 26 May 2018 14:50:01 +0800
+
+Signed-off-by: hwren <hwrenx@126.com>
+---
+ libavformat/mpegts.c | 1 +
+ libavformat/mpegts.h | 1 +
+ 2 files changed, 2 insertions(+)
+
+diff --git a/libavformat/mpegts.c b/libavformat/mpegts.c
+index 5f53f77..6674cd0 100644
+--- a/libavformat/mpegts.c
++++ b/libavformat/mpegts.c
+@@ -735,6 +735,7 @@ static const StreamType ISO_types[] = {
+     { 0x21, AVMEDIA_TYPE_VIDEO, AV_CODEC_ID_JPEG2000   },
+     { 0x24, AVMEDIA_TYPE_VIDEO, AV_CODEC_ID_HEVC       },
+     { 0x42, AVMEDIA_TYPE_VIDEO, AV_CODEC_ID_CAVS       },
++    { 0xd2, AVMEDIA_TYPE_VIDEO, AV_CODEC_ID_AVS2       },
+     { 0xd1, AVMEDIA_TYPE_VIDEO, AV_CODEC_ID_DIRAC      },
+     { 0xea, AVMEDIA_TYPE_VIDEO, AV_CODEC_ID_VC1        },
+     { 0 },
+diff --git a/libavformat/mpegts.h b/libavformat/mpegts.h
+index 272e2be..b37db3c 100644
+--- a/libavformat/mpegts.h
++++ b/libavformat/mpegts.h
+@@ -55,6 +55,7 @@
+ #define STREAM_TYPE_VIDEO_H264      0x1b
+ #define STREAM_TYPE_VIDEO_HEVC      0x24
+ #define STREAM_TYPE_VIDEO_CAVS      0x42
++#define STREAM_TYPE_VIDEO_AVS2      0xd2
+ #define STREAM_TYPE_VIDEO_VC1       0xea
+ #define STREAM_TYPE_VIDEO_DIRAC     0xd1
+ 

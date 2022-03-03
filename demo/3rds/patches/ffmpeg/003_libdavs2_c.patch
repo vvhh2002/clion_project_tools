@@ -1,0 +1,79 @@
+--- a/libavcodec/libdavs2.c	2018-11-23 15:18:42.000000000 +0800
++++ b/libavcodec/libdavs2.c	2018-11-23 16:25:49.000000000 +0800
+@@ -32,8 +32,6 @@
+     davs2_param_t    param;      // decoding parameters
+     davs2_packet_t   packet;     // input bitstream
+ 
+-    int decoded_frames;
+-
+     davs2_picture_t  out_frame;  // output data, frame data
+     davs2_seq_info_t headerset;  // output data, sequence header
+ 
+@@ -88,7 +86,7 @@
+         }
+ 
+         frame->data[plane]     = frame->buf[plane]->data;
+-        frame->linesize[plane] = pic->widths[plane];
++        frame->linesize[plane] = size_line;
+ 
+         for (line = 0; line < pic->lines[plane]; ++line)
+             memcpy(frame->data[plane] + line * size_line,
+@@ -96,13 +94,27 @@
+                    pic->widths[plane] * bytes_per_sample);
+     }
+ 
++    switch (pic->type) {
++        case DAVS2_PIC_I:
++            frame->pict_type = AV_PICTURE_TYPE_I;
++            break;
++        case DAVS2_PIC_P:
++            frame->pict_type = AV_PICTURE_TYPE_P;
++            break;
++        case DAVS2_PIC_B:
++        case DAVS2_PIC_F:
++            frame->pict_type = AV_PICTURE_TYPE_B;
++            break;
++        default:
++            frame->pict_type = AV_PICTURE_TYPE_NONE;
++    }
++
+     frame->width     = cad->headerset.width;
+     frame->height    = cad->headerset.height;
+     frame->pts       = cad->out_frame.pts;
+-    frame->pict_type = pic->type;
+     frame->format    = avctx->pix_fmt;
++    frame->key_frame = pic->type == DAVS2_PIC_I ? 1 : 0;
+ 
+-    cad->decoded_frames++;
+     return 1;
+ }
+ 
+@@ -129,7 +141,16 @@
+     int           ret      = DAVS2_DEFAULT;
+ 
+     if (!buf_size) {
+-        return 0;
++        ret = davs2_decoder_flush(cad->decoder, &cad->headerset, &cad->out_frame);
++        if (ret == DAVS2_END) {
++            return 0;
++        } else if (ret == DAVS2_GOT_FRAME) {
++            *got_frame = davs2_dump_frames(avctx, &cad->out_frame, &cad->headerset, ret, frame);
++            davs2_decoder_frame_unref(cad->decoder, &cad->out_frame);
++            return ret;
++        } else {
++            return AVERROR_EXTERNAL;
++        }
+     }
+ 
+     cad->packet.data = buf_ptr;
+@@ -165,7 +186,7 @@
+     .close          = davs2_end,
+     .decode         = davs2_decode_frame,
+     .capabilities   =  AV_CODEC_CAP_DELAY,//AV_CODEC_CAP_DR1 |
+-    .pix_fmts       = (const enum AVPixelFormat[]) { AV_PIX_FMT_YUV420P,
++    .pix_fmts       = (const enum AVPixelFormat[]) { AV_PIX_FMT_YUV420P, AV_PIX_FMT_YUV420P10,
+                                                      AV_PIX_FMT_NONE },
+     .wrapper_name   = "libdavs2",
+-};
++};
+\ No newline at end of file

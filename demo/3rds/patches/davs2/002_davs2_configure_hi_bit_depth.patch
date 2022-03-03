@@ -1,0 +1,21 @@
+--- a/build/linux/configure	2018-11-14 00:25:40.000000000 +0800
++++ b/build/linux/configure	2018-11-23 17:37:44.000000000 +0800
+@@ -343,7 +343,7 @@
+ gprof="no"
+ strip="no"
+ pic="no"
+-bit_depth="8"
++bit_depth="10"
+ chroma_format="all"
+ compiler="GNU"
+ compiler_style="GNU"
+@@ -466,9 +466,6 @@
+             if [ "$bit_depth" -lt "8" -o "$bit_depth" -gt "10" ]; then
+                 echo "Supplied bit depth must be in range [8,10]."
+                 exit 1
+-            elif [[ "$bit_depth" = "9" || "$bit_depth" = "10" ]]; then
+-                echo "BitDepth $bit_depth not supported currently."
+-                exit 1
+             fi
+             bit_depth=`expr $bit_depth + 0`
+             ;;
