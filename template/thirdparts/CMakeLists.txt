@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.12)
 project(toccobird_3rds)
 include(ExternalProject)
-get_filename_component(EXTERNAL_LIB_INSTALL_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../3rd ABSOLUTE)
+get_filename_component(EXTERNAL_LIB_INSTALL_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../3rds ABSOLUTE)
 message("INSTALL DIR:${EXTERNAL_LIB_INSTALL_PATH}")
 set(CMAKE_OSX_SYSROOT /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk)
 
