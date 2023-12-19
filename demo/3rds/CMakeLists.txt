@@ -4,6 +4,67 @@ include(ExternalProject)
 #SET(EXTERNAL_LIB_INSTALL_PATH  ${CMAKE_CURRENT_SOURCE_DIR}/3rd)
 get_filename_component(EXTERNAL_LIB_INSTALL_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../3rd ABSOLUTE)
 message("INSTALL DIR:${EXTERNAL_LIB_INSTALL_PATH}")
+
+#EXTERNALPROJECT_ADD(
+#        boost
+#        PREFIX ${EXTERNAL_LIB_INSTALL_PATH}
+#        # URL https://boostorg.jfrog.io/artifactory/main/release/1.84.0/source/boost_1_84_0.tar.gz
+#        URL ${CMAKE_SOURCE_DIR}/vendor/boost_1_84_0.tar.gz
+#        PATCH_COMMAND ${CMAKE_SOURCE_DIR}/patches/patch-manager.sh boost
+#        CONFIGURE_COMMAND  ./bootstrap.sh --prefix=<INSTALL_DIR>
+#        BUILD_COMMAND  ls
+#        INSTALL_COMMAND  ./b2  install --prefix=<INSTALL_DIR> --build-type=complete --layout=tagged
+#        BUILD_IN_SOURCE 1
+#)
+
+#
+#EXTERNALPROJECT_ADD(
+#        gmp
+#        PREFIX ${EXTERNAL_LIB_INSTALL_PATH}
+#        # URL https://gmplib.org/download/gmp/gmp-6.3.0.tar.xz
+#        URL ${CMAKE_SOURCE_DIR}/vendor/gmp-6.3.0.tar.xz
+#        #        PATCH_COMMAND ${CMAKE_SOURCE_DIR}/patches/patch-manager.sh gmp
+#        CONFIGURE_COMMAND  ./configure --prefix=<INSTALL_DIR>
+#        BUILD_COMMAND  make
+#        INSTALL_COMMAND  make install
+#        BUILD_IN_SOURCE 1
+#)
+#EXTERNALPROJECT_ADD(
+#        mpfr
+#        PREFIX ${EXTERNAL_LIB_INSTALL_PATH}
+#        # URL https://www.mpfr.org/mpfr-current/mpfr-4.2.1.tar.gz
+#        URL ${CMAKE_SOURCE_DIR}/vendor/mpfr-4.2.1.tar.gz
+#        #        PATCH_COMMAND ${CMAKE_SOURCE_DIR}/patches/patch-manager.sh gmp
+#        CONFIGURE_COMMAND  ./configure --prefix=<INSTALL_DIR> --with-gmp=<INSTALL_DIR>
+#        BUILD_COMMAND  make
+#        INSTALL_COMMAND  make install
+#        BUILD_IN_SOURCE 1
+#)
+#EXTERNALPROJECT_ADD(
+#        cgal
+#        PREFIX ${EXTERNAL_LIB_INSTALL_PATH}
+#        # URL https://github.com/CGAL/cgal/archive/refs/tags/v5.6.tar.gz
+#        URL ${CMAKE_SOURCE_DIR}/vendor/cgal-5.6.tar.gz
+#        #        PATCH_COMMAND ${CMAKE_SOURCE_DIR}/patches/patch-manager.sh gmp
+#        CONFIGURE_COMMAND  cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR> -DENABLE_SHARED:BOOL=OFF  <SOURCE_DIR>
+#        BUILD_COMMAND  make
+#        INSTALL_COMMAND  make install
+#        BUILD_IN_SOURCE 0
+#)
+#
+#
+#EXTERNALPROJECT_ADD(
+#        VTK
+#        PREFIX ${EXTERNAL_LIB_INSTALL_PATH}
+#        # URL https://vtk.org/files/release/9.3/VTK-9.3.0.tar.gz
+#        URL ${CMAKE_SOURCE_DIR}/vendor/VTK-9.3.0.tar.gz
+#        #        PATCH_COMMAND ${CMAKE_SOURCE_DIR}/patches/patch-manager.sh gmp
+#        CONFIGURE_COMMAND  cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR> -DENABLE_SHARED:BOOL=OFF  <SOURCE_DIR>
+#        BUILD_COMMAND  make
+#        INSTALL_COMMAND  make install
+#        BUILD_IN_SOURCE 0
+#)
+
 #EXTERNALPROJECT_ADD(
 #        yasm
 #        # URL http://www.tortall.net/projects/yasm/releases/yasm-1.3.0.tar.gz
